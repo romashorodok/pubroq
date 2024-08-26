@@ -1,6 +1,5 @@
 use pyo3::prelude::*;
 
-/// Prints a message.
 #[pyfunction]
 fn hello() -> PyResult<String> {
     Ok("Hello from my-project!".into())
