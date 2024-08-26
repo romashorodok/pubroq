@@ -9,6 +9,7 @@ dependencies = [
     "maturin>=1.7.1",
     "pip>=24.2",
     "cffi>=1.17.0",
+    "watchfiles>=0.23.0",
 ]
 readme = "README.md"
 requires-python = ">= 3.8"
@@ -17,6 +18,7 @@ classifiers = ["Programming Language :: Python"]
 
 [project.scripts]
 root = "my_project.__main__:main"
+test = "my_project.__main__:__main__"
 
 [build-system]
 requires = ["maturin>=1.2,<2.0"]

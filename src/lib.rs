@@ -2,7 +2,7 @@ use pyo3::prelude::*;
 
 #[pyfunction]
 fn hello() -> PyResult<String> {
-    Ok("Hello from my-project!".into())
+    Ok("Hello from my-project!!!".into())
 }
 
 #[pyclass]
