@@ -354,6 +354,8 @@ dependencies = [
  "cbindgen",
  "notify-debouncer-full",
  "pyo3",
+ "serde",
+ "serde_json",
 ]
 
 [[package]]

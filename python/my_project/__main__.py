@@ -1,9 +1,9 @@
 import asyncio
 import signal
-import sys
+import json
 
-from ._lowlevel import hello, RustStruct
 from watchfiles import run_process
+from ._lowlevel import hello, RustStruct, human_says_hi, greater_than_2
 
 
 async def coro():
@@ -11,6 +11,10 @@ async def coro():
     rust_struct.extend_vector([1, 1, 1, 1])
     rust_struct.printer()
     print(hello())
+    human = json.dumps({"name": "Someone", "age": 1})
+    human_says_hi(human)
+
+    greater_than_2(1)
 
 
 def main_process():
