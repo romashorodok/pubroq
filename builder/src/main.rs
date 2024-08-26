@@ -3,7 +3,11 @@ use notify_debouncer_full::notify::{RecursiveMode, Watcher};
 
 use std::env;
 use std::path::{Path, PathBuf};
+use std::process::{Command, Stdio};
 use std::time::Duration;
+
+use std::io::{BufRead, BufReader};
+use std::thread;
 
 fn find_workspace_root(mut current_dir: PathBuf) -> Option<PathBuf> {
     loop {
@@ -32,6 +36,13 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             workspace_path, src_path
         );
 
+        let mut maturin = Command::new("maturin");
+        maturin
+            .arg("develop")
+            .arg("--skip-install")
+            .arg("--bindings=pyo3");
+        maturin.current_dir(workspace_path);
+
         let (tx, rx) = std::sync::mpsc::channel();
         let mut debouncer = new_debouncer(Duration::from_secs(1), None, tx)?;
         debouncer
@@ -40,9 +51,38 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
         for result in rx {
             match result {
-                Ok(events) => events.iter().for_each(|event| println!("{event:?}")),
+                Ok(_) => {
+                    let mut cmd = maturin
+                        .stdout(Stdio::piped())
+                        .stderr(Stdio::piped())
+                        .spawn()?;
+
+                    let stdout = cmd.stdout.take().expect("Failed to capture stdout");
+                    let stderr = cmd.stderr.take().expect("Failed to capture stderr");
+
+                    let stdout_thread = thread::spawn(move || {
+                        let reader = BufReader::new(stdout);
+                        for line in reader.lines() {
+                            println!("maturin | {}", line.unwrap());
+                        }
+                    });
+
+                    let stderr_thread = thread::spawn(move || {
+                        let reader = BufReader::new(stderr);
+                        for line in reader.lines() {
+                            eprintln!("maturin | {}", line.unwrap());
+                        }
+                    });
+
+                    let status = cmd.wait()?;
+                    println!("Build finished with status: {}", status);
+
+                    stdout_thread.join().expect("Failed to join stdout thread");
+                    stderr_thread.join().expect("Failed to join stderr thread");
+                }
                 Err(errors) => errors.iter().for_each(|error| println!("{error:?}")),
             }
+
             println!();
         }
 

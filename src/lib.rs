@@ -33,11 +33,9 @@ impl RustStruct {
     }
 }
 
-/// A Python module implemented in Rust.
 #[pymodule]
 fn _lowlevel(_py: Python, m: &PyModule) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(hello, m)?)?;
     m.add_class::<RustStruct>()?;
-
     Ok(())
 }
