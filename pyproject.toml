@@ -1,0 +1,33 @@
+[project]
+name = "my-project"
+version = "0.1.0"
+description = "Add your description here"
+authors = [
+    { name = "romashorodok", email = "108732029+romashorodok@users.noreply.github.com" }
+]
+dependencies = [
+    "maturin>=1.7.1",
+    "pip>=24.2",
+    "cffi>=1.17.0",
+]
+readme = "README.md"
+requires-python = ">= 3.8"
+classifiers = ["Programming Language :: Python"]
+
+
+[project.scripts]
+root = "my_project.__main__:main"
+
+[build-system]
+requires = ["maturin>=1.2,<2.0"]
+build-backend = "maturin"
+
+[tool.rye]
+managed = true
+dev-dependencies = []
+
+[tool.maturin]
+python-source = "python"
+module-name = "my_project._lowlevel"
+features = ["pyo3/extension-module"]
+
