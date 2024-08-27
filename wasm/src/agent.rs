@@ -25,6 +25,6 @@ impl WasmAgent {
 
 impl protocol::Agent for WasmAgent {
     fn ufrag(&self) -> String {
-        "test".into()
+        "one".into()
     }
 }

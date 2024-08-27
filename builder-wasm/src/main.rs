@@ -38,7 +38,10 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         );
 
         let mut wasm_pack = Command::new("wasm-pack");
-        wasm_pack.arg("build").arg("--target=web");
+        wasm_pack
+            .arg("build")
+            .arg("--target=web")
+            .arg("--out-dir=../client/pkg");
         wasm_pack.current_dir(workspace_path);
 
         let (tx, rx) = std::sync::mpsc::channel();
