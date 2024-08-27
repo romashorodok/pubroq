@@ -17,6 +17,35 @@ function App() {
     })
   }, [])
 
+  useEffect(() => {
+    const transport = new WebTransport("https://localhost:4433/counter", {
+      requireUnreliable: true,
+    });
+    let intervalId: number;
+    async function start() {
+      await transport.ready;
+
+      let stream = await transport.createBidirectionalStream();
+      let reader = stream.readable.getReader();
+      let writer = stream.writable.getWriter();
+
+      await writer.write(new Uint8Array([65, 66, 67]));
+      intervalId = setInterval(async () => {
+        let received = await reader.read();
+        console.log('received', received);
+        await writer.write(new Uint8Array([65, 66, 67]));
+      }, 1000)
+    }
+    start()
+
+    return () => {
+      transport.close()
+      clearInterval(intervalId)
+    }
+  }, [])
+
+
+
   return (
     <>
       <div>

@@ -10,6 +10,11 @@ dependencies = [
     "pip>=24.2",
     "cffi>=1.17.0",
     "watchfiles>=0.23.0",
+    "av>=12.3.0",
+    "aioquic>=1.2.0",
+    "wsproto>=1.2.0",
+    "uvloop>=0.20.0",
+    "starlette>=0.38.2",
 ]
 readme = "README.md"
 requires-python = ">= 3.8"

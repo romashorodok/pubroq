@@ -10,19 +10,52 @@
 #   universal: false
 
 -e file:.
-anyio==4.4.0
-    # via watchfiles
-cffi==1.17.0
+aioquic==1.2.0
     # via my-project
+anyio==4.4.0
+    # via starlette
+    # via watchfiles
+attrs==24.2.0
+    # via service-identity
+av==12.3.0
+    # via my-project
+certifi==2024.7.4
+    # via aioquic
+cffi==1.17.0
+    # via cryptography
+    # via my-project
+cryptography==43.0.0
+    # via aioquic
+    # via pyopenssl
+    # via service-identity
+h11==0.14.0
+    # via wsproto
 idna==3.8
     # via anyio
 maturin==1.7.1
     # via my-project
 pip==24.2
     # via my-project
+pyasn1==0.6.0
+    # via pyasn1-modules
+    # via service-identity
+pyasn1-modules==0.4.0
+    # via service-identity
 pycparser==2.22
     # via cffi
+pylsqpack==0.3.18
+    # via aioquic
+pyopenssl==24.2.1
+    # via aioquic
+service-identity==24.1.0
+    # via aioquic
 sniffio==1.3.1
     # via anyio
+starlette==0.38.2
+    # via my-project
+uvloop==0.20.0
+    # via my-project
 watchfiles==0.23.0
+    # via my-project
+wsproto==1.2.0
     # via my-project

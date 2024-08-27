@@ -18,6 +18,6 @@ impl CPythonAgent {
 
 impl protocol::Agent for CPythonAgent {
     fn ufrag(&self) -> String {
-        "test".into()
+        "second".into()
     }
 }

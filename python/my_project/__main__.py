@@ -2,27 +2,34 @@ import asyncio
 import signal
 import json
 
+from my_project import server
 from watchfiles import run_process
 from ._lowlevel import hello, RustStruct, human_says_hi, greater_than_2, CPythonAgent
 
 
 async def coro():
-    rust_struct = RustStruct(data="some data", vector=[255, 255, 255])
-    rust_struct.extend_vector([1, 1, 1, 1])
-    rust_struct.printer()
-    print(hello())
-    human = json.dumps({"name": "Someone", "age": 1})
-    human_says_hi(human)
-
     try:
-        greater_than_2(1)
-        raise RuntimeError("Must throw exception")
-    except ValueError:
+        await server.start_server()
+    except KeyboardInterrupt:
         pass
-
-    agent = CPythonAgent()
-    ufrag = agent.ufrag()
-    print(agent, ufrag)
+    # await server.start_server("certificate.pem", "certificate.key")
+    # print("Done")
+    # rust_struct = RustStruct(data="some data", vector=[255, 255, 255])
+    # rust_struct.extend_vector([1, 1, 1, 1])
+    # rust_struct.printer()
+    # print(hello())
+    # human = json.dumps({"name": "Someone", "age": 1})
+    # human_says_hi(human)
+    #
+    # try:
+    #     greater_than_2(1)
+    #     raise RuntimeError("Must throw exception")
+    # except ValueError:
+    #     pass
+    #
+    # agent = CPythonAgent()
+    # ufrag = agent.ufrag()
+    # print(agent, ufrag)
 
 
 def main_process():
