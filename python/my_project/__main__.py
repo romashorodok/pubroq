@@ -12,8 +12,6 @@ async def coro():
         await server.start_server()
     except KeyboardInterrupt:
         pass
-    # await server.start_server("certificate.pem", "certificate.key")
-    # print("Done")
     # rust_struct = RustStruct(data="some data", vector=[255, 255, 255])
     # rust_struct.extend_vector([1, 1, 1, 1])
     # rust_struct.printer()

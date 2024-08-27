@@ -18,7 +18,7 @@ function App() {
   }, [])
 
   useEffect(() => {
-    const transport = new WebTransport("https://localhost:4433/counter", {
+    const transport = new WebTransport("https://localhost:4433/wt", {
       requireUnreliable: true,
     });
     let intervalId: number;
@@ -43,8 +43,6 @@ function App() {
       clearInterval(intervalId)
     }
   }, [])
-
-
 
   return (
     <>
