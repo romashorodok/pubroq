@@ -3,7 +3,7 @@ import signal
 import json
 
 from watchfiles import run_process
-from ._lowlevel import hello, RustStruct, human_says_hi, greater_than_2
+from ._lowlevel import hello, RustStruct, human_says_hi, greater_than_2, CPythonAgent
 
 
 async def coro():
@@ -14,7 +14,15 @@ async def coro():
     human = json.dumps({"name": "Someone", "age": 1})
     human_says_hi(human)
 
-    greater_than_2(1)
+    try:
+        greater_than_2(1)
+        raise RuntimeError("Must throw exception")
+    except ValueError:
+        pass
+
+    agent = CPythonAgent()
+    ufrag = agent.ufrag()
+    print(agent, ufrag)
 
 
 def main_process():

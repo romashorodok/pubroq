@@ -4,9 +4,8 @@ version = "0.1.0"
 edition = "2021"
 
 [workspace]
-members = [ "builder", ]
+members = [ "builder", "builder-wasm", "protocol", "wasm", ]
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 [lib]
 name = "my_project"
 crate-type = ["cdylib"]
@@ -17,3 +16,4 @@ pyo3 = "0.19.0"
 notify-debouncer-full = "0.3.1"
 serde = "1.0.209"
 serde_json = "1.0.127"
+protocol = { path = "./protocol" }
